@@ -19,7 +19,6 @@
 		2BF3DF2C1E54B7DF004DD445 /* SettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2BF3DF2A1E54B7DF004DD445 /* SettingsViewController.m */; };
 		2BF3DF2D1E54B7DF004DD445 /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BF3DF2B1E54B7DF004DD445 /* SettingsViewController.swift */; };
 		591B2BD4C62D400CB4E39B30 /* Pods_MimoiOSCodingChallengeTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FA866BE4B2BF25DEA765CAF4 /* Pods_MimoiOSCodingChallengeTests.framework */; };
-		7C3A2A681F77191200EF8DA8 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C3A2A671F77191200EF8DA8 /* User.swift */; };
 		7CA0872A1F7728B400D744D6 /* LoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7CA087291F7728B400D744D6 /* LoginViewController.m */; };
 		B5B57A556C0D6264F7B2EB66 /* Pods_MimoiOSCodingChallengeUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C4CA2B99159E74AED055510E /* Pods_MimoiOSCodingChallengeUITests.framework */; };
 		BD6E69CAC730DB8A44EDB347 /* Pods_MimoiOSCodingChallenge.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C0752AC0B1484421C9660620 /* Pods_MimoiOSCodingChallenge.framework */; };
@@ -68,7 +67,6 @@
 		2BF3DF2A1E54B7DF004DD445 /* SettingsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SettingsViewController.m; sourceTree = "<group>"; };
 		2BF3DF2B1E54B7DF004DD445 /* SettingsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
 		37560CCE1146D663B5816058 /* Pods-MimoiOSCodingChallengeUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MimoiOSCodingChallengeUITests.release.xcconfig"; path = "Pods/Target Support Files/Pods-MimoiOSCodingChallengeUITests/Pods-MimoiOSCodingChallengeUITests.release.xcconfig"; sourceTree = "<group>"; };
-		7C3A2A671F77191200EF8DA8 /* User.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		7CA087281F7728B400D744D6 /* LoginViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoginViewController.h; sourceTree = "<group>"; };
 		7CA087291F7728B400D744D6 /* LoginViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoginViewController.m; sourceTree = "<group>"; };
 		89A14F25BE0F8EB51FFE565C /* Pods-MimoiOSCodingChallengeUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MimoiOSCodingChallengeUITests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-MimoiOSCodingChallengeUITests/Pods-MimoiOSCodingChallengeUITests.debug.xcconfig"; sourceTree = "<group>"; };
@@ -136,7 +134,6 @@
 				2BF3DEF91E54B79A004DD445 /* AppDelegate.m */,
 				7CA087281F7728B400D744D6 /* LoginViewController.h */,
 				7CA087291F7728B400D744D6 /* LoginViewController.m */,
-				7C3A2A671F77191200EF8DA8 /* User.swift */,
 				2BF3DEFB1E54B79A004DD445 /* ViewController.h */,
 				2BF3DEFC1E54B79A004DD445 /* ViewController.m */,
 				2BF3DF291E54B7DF004DD445 /* SettingsViewController.h */,
@@ -490,7 +487,6 @@
 				2BF3DEFD1E54B79A004DD445 /* ViewController.m in Sources */,
 				2BF3DEFA1E54B79A004DD445 /* AppDelegate.m in Sources */,
 				2BCC6AB61E55A55A00585FA1 /* SettingsTableViewCell.swift in Sources */,
-				7C3A2A681F77191200EF8DA8 /* User.swift in Sources */,
 				7CA0872A1F7728B400D744D6 /* LoginViewController.m in Sources */,
 				2BF3DEF71E54B79A004DD445 /* main.m in Sources */,
 				2BF3DF2D1E54B7DF004DD445 /* SettingsViewController.swift in Sources */,

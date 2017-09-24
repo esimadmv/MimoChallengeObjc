@@ -1,3 +1,13 @@
+## About this code
+Files that I have added:
+- LoginViewController.h
+- LoginViewController.m
+Files that I modified:
+- SettingsViewController.m
+- SettingsViewController.Swift
+- LoginViewController.h
+- LoginViewController.m
+
 ## Overview
 
 Download this repo and continue working on this not finished code base.

@@ -580,6 +580,7 @@ static const CGFloat kSettingsSectionFooterHeight               = 48.0;
 
 - (void)logout {
 
+    // Alert User to logout
     UIAlertController * alert = [UIAlertController
                                  alertControllerWithTitle:@"Are You Sure Want to Logout?"
                                  message:@""

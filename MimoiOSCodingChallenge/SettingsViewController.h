@@ -7,5 +7,6 @@
 
 @interface SettingsViewController : UIViewController
 
+// Add darkmode method
 -(void)checkDarkMode;
 @end

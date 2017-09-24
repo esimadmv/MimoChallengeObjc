@@ -6,7 +6,10 @@
 extension SettingsViewController : SettingsTableViewCellDelegate {
 	
 	func switchChangedValue(switcher: UISwitch) {
-		UserDefaults.standard.set(switcher.isOn, forKey: "darkMode")
+		// Store darkMode status on the device
+        UserDefaults.standard.set(switcher.isOn, forKey: "darkMode")
+        
+        // Update table based on dark mode
         self.checkDarkMode()
 	}
 }

@@ -27,6 +27,8 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
+    
     _isLoginView = YES; // set YES for login and NO for sign up
     _urlOrigin = @"https://mimo-test.auth0.com";
     self.view.backgroundColor = [UIColor whiteColor];
@@ -35,19 +37,28 @@
                                   blue:96.0f/255.0f
                                  alpha:1.0f];
     
+    // append views to the ViewController' view
     [self setupLogin];
+    
+    
+    // Tap recognizer to remove the keyboard on screen tapped
     UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self
                                                                           action:@selector(dismissKeyboard)];
     [self.view addGestureRecognizer:tap];
-    // Do any additional setup after loading the view.
+
     
 }
 
 
 - (void)viewDidAppear:(BOOL)animated{
+    
+    
+    // Get User session from device
     NSString *email = [[NSUserDefaults standardUserDefaults] stringForKey:@"email"];
     NSString *idToken = [[NSUserDefaults standardUserDefaults] stringForKey:@"id"];
     NSString *accessToken = [[NSUserDefaults standardUserDefaults] stringForKey:@"accessToken"];
+    
+    // If user is valid go to SettingsViewController
     if(email != nil && idToken != nil && accessToken != nil){
         SettingsViewController *vc = [[SettingsViewController alloc] init];
         [self presentViewController:vc animated:YES completion:nil];
@@ -58,7 +69,8 @@
     CGFloat height = 300;
     _container = [[UIView  alloc] initWithFrame:
                   CGRectMake(0,self.view.bounds.size.height - 300, self.view.bounds.size.width, 300)];
-    
+    [self.view addSubview:_container];
+
     
     _welcome = [[UITextView  alloc] initWithFrame:
                 CGRectMake(60,100, self.view.bounds.size.width - 120, 150)];
@@ -69,11 +81,15 @@
     _welcome.text = NSLocalizedString(@"WELCOME TO MIMO iOS CHALLENGE", @"Login Page Title");
     [self.view addSubview:_welcome];
     
+    
+    
     UILabel *emailLabel = [[UILabel  alloc] initWithFrame:
                            CGRectMake(60,_container.bounds.size.height - height, _container.bounds.size.width - 120, 20)];
     emailLabel.text = NSLocalizedString(@"Email", @"Email Label");
     emailLabel.textColor = [UIColor lightGrayColor];
     [_container addSubview:emailLabel];
+    
+    
     
     height -= 20;
     _emailField = [[UITextField  alloc] initWithFrame:
@@ -83,12 +99,18 @@
     _emailField.tag = 0;
     [self setupTextField:_emailField];
     
+    
+    
+    
     height -= 54;
     UILabel *passLabel = [[UILabel  alloc] initWithFrame:
                           CGRectMake(60,_container.bounds.size.height - height, _container.bounds.size.width - 120, 20)];
     passLabel.text = NSLocalizedString(@"Password", @"Password Label");
     passLabel.textColor = [UIColor lightGrayColor];
     [_container addSubview:passLabel];
+    
+    
+    
     
     height -= 20;
     _passwordField = [[UITextField  alloc] initWithFrame:
@@ -97,6 +119,8 @@
     _passwordField.delegate = self;
     _passwordField.secureTextEntry = YES;
     [self setupTextField:_passwordField];
+    
+    
     
     
     height -= 74;
@@ -119,7 +143,6 @@
     login.frame = CGRectMake(60, _container.bounds.size.height - height, _container.bounds.size.width - 120, 44);
     [_container addSubview:login];
     
-    [self.view addSubview:_container];
     
     
 }
@@ -136,16 +159,22 @@
 
     NSString *email = _emailField.text;
     NSString *pass = _passwordField.text;
+    
+    
     dispatch_async(dispatch_get_global_queue( DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^(void){
-        //Background Thread
+        
         NSString *url = [NSString stringWithFormat:@"%@/dbconnections/signup",_urlOrigin];
+        
         NSMutableURLRequest *urlRequest = [[NSMutableURLRequest alloc] initWithURL:[NSURL URLWithString:url]];
+        
         [urlRequest setHTTPMethod:@"POST"];
+        
         [urlRequest setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
         
-        NSString *postData = [NSString stringWithFormat:@"&client_id=%s&username=%@&password=%@&connection=%s&grant_type=%s&scope=%s", "PAn11swGbMAVXVDbSCpnITx5Utsxz1co", email, pass,"Username-Password-Authentication","password","openid profile email"]; //Send the POST Values
-        NSLog(@"%@", postData);
+        NSString *postData = [NSString stringWithFormat:@"&client_id=%s&username=%@&password=%@&connection=%s&grant_type=%s&scope=%s", "PAn11swGbMAVXVDbSCpnITx5Utsxz1co", email, pass,"Username-Password-Authentication","password","openid profile email"];
+        
         NSString *length = [NSString stringWithFormat:@"%d", [postData length]];
+        
         [urlRequest setValue:length forHTTPHeaderField:@"Content-Length"];
         
         
@@ -158,6 +187,7 @@
                              @"openid profile email", @"scope",
                              nil];
         NSError *error;
+        
         NSData *postdata = [NSJSONSerialization dataWithJSONObject:tmp options:0 error:&error];
         [urlRequest setHTTPBody:postdata];
         
@@ -168,14 +198,14 @@
         //Get the Result of Request
         NSString *response = [[NSString alloc] initWithBytes:[returnData bytes] length:[returnData length] encoding:NSUTF8StringEncoding];
         
-        NSLog(@"Response >>>> %@",response);
         NSData *data = [response dataUsingEncoding:NSUTF8StringEncoding];
+        
+        // convert data to JSON
         id json = [NSJSONSerialization JSONObjectWithData:data options:0 error:nil];
         
         if([json objectForKey:@"error"])
         {
             _completed = NO;
-            NSLog(@"Error%@",json);
         }
         else
         {
@@ -184,9 +214,12 @@
         }
 
         dispatch_async(dispatch_get_main_queue(), ^(void){
+            // Update UI after API CALLBACK has returned
             if (_completed){
                 [self loginInBackground];
             } else {
+                
+                // Show Alert if User already exist
                 UIAlertController * alert = [UIAlertController
                                              alertControllerWithTitle:@"Error"
                                              message:@"user already exist"
@@ -225,8 +258,7 @@
         [urlRequest setHTTPMethod:@"POST"];
         [urlRequest setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
         
-        NSString *postData = [NSString stringWithFormat:@"&client_id=%s&username=%@&password=%@&connection=%s&grant_type=%s&scope=%s", "PAn11swGbMAVXVDbSCpnITx5Utsxz1co", email, pass,"Username-Password-Authentication","password","openid profile email"]; //Send the POST Values
-        NSLog(@"%@", postData);
+        NSString *postData = [NSString stringWithFormat:@"&client_id=%s&username=%@&password=%@&connection=%s&grant_type=%s&scope=%s", "PAn11swGbMAVXVDbSCpnITx5Utsxz1co", email, pass,"Username-Password-Authentication","password","openid profile email"];
         NSString *length = [NSString stringWithFormat:@"%d", [postData length]];
         [urlRequest setValue:length forHTTPHeaderField:@"Content-Length"];
         
@@ -249,18 +281,18 @@
         //Get the Result of Request
         NSString *response = [[NSString alloc] initWithBytes:[returnData bytes] length:[returnData length] encoding:NSUTF8StringEncoding];
         
-        NSLog(@"Response >>>> %@",response);
         NSData *data = [response dataUsingEncoding:NSUTF8StringEncoding];
+        
+        // convert data to JSON
         id json = [NSJSONSerialization JSONObjectWithData:data options:0 error:nil];
         
         if([json objectForKey:@"error"])
         {
             _completed = NO;
-            NSLog(@"Error%@",json);
         }
         else
         {
-            NSLog(@"The response is - %@",json);
+            // Store User Session on device
             NSString *accessToken = [json objectForKey:@"access_token"];
             NSString *idToken = [json objectForKey:@"id_token"];
             [[NSUserDefaults standardUserDefaults] setObject:accessToken forKey:@"accessToken"];
@@ -268,12 +300,11 @@
             [[NSUserDefaults standardUserDefaults] setObject:email forKey:@"email"];
             [[NSUserDefaults standardUserDefaults] synchronize];
             _completed = YES;
-            
-            
+     
         }
         
         dispatch_async(dispatch_get_main_queue(), ^(void){
-            
+            // Update UI after API CALLBACK has returned
             if (_completed){
                 _passwordField.text = @"";
                 _emailField.text = @"";
@@ -344,15 +375,5 @@
     [_container setFrame:CGRectMake(0,self.view.bounds.size.height - 300,self.view.bounds.size.width,300)];
     _welcome.hidden = NO;
 }
-
-/*
- #pragma mark - Navigation
- 
- // In a storyboard-based application, you will often want to do a little preparation before navigation
- - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
- // Get the new view controller using [segue destinationViewController].
- // Pass the selected object to the new view controller.
- }
- */
 
 @end
